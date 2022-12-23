@@ -39,7 +39,20 @@
                 <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                      </div>
-                                                                                                                                                 
+                     @if ($errors->any())
+                     @foreach ($errors->all() as $error )
+                     <div class="alert alert-danger">
+                     <li>{{$error}}</li>
+                     </div>
+                     @endforeach
+                       
+                     @endif      
+                     
+                     
+
+                     @if (session('success'))
+                         <div class="alert alert-success">{{session('success')}}</div>
+                     @endif
             {{ $slot }}
                   
                 </div>

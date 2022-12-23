@@ -2,6 +2,8 @@
     <x-slot name="header">Quiz Oluştur      
     </x-slot>
   
+
+
 <div class="card">
 
 
@@ -10,21 +12,22 @@
 <form action="{{route('quizzes.store')}}" method="post">
 @csrf
 
+
 <div class="form-group">
       <Label>*Quiz Başlığı</Label>
-      <input type="text" name="title" class="form-control" required> 
+      <input type="text" name="title" class="form-control" placeholder="{{old('title')}}" required> 
     </div>
 
     <br>
 <div class="form-group">
   <Label>Quiz Açıklama  (Zorunlu Değil)</Label>
-  <textarea name="description"  class="form-control"id="" cols="30" rows="10"></textarea> 
+  <textarea name="description"  class="form-control"id="" cols="30" rows="10">{{old('description')}}</textarea> 
 </div>
 
 <br>
 <div class="form-group">
   <Label>Bitiş Tarihi (Zorunlu Değil) </Label>
-  <input type="datetime-local" name="finished_at" class="form-control" > 
+  <input type="datetime-local" name="finished_at" value="{{old('finished_at')}}" class="form-control" > 
 </div>
 
 <br>
