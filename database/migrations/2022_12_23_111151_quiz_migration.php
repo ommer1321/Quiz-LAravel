@@ -15,7 +15,11 @@ return new class extends Migration
     {
         Schema::create('quizzes', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->string('title');
+            $table->longText('description')->nullable();
+            $table->enum('status',['publish','draft','passive']);
+            $table->timestamps();        
+            $table->timestamp('finished_at')->nullable();
         });
     }
 
