@@ -36,6 +36,6 @@ Route::group(['middleware'=>['auth','isAdmin'],'prefix'=>'admin'],function(){
 
     Route::resource('quizzes',QuizController::class);
     Route::resource('quizzes.create',QuizController::class);
-
+    Route::resource('quizzes.store',QuizController::class);
 
 });
