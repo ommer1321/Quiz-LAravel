@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\QuizController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,8 +33,9 @@ Route::middleware([
 
 Route::group(['middleware'=>['auth','isAdmin'],'prefix'=>'admin'],function(){
 
-    Route::get('deneme',function(){
-        return " Testi";
-        
-    });
+
+    Route::resource('quizzes',QuizController::class);
+    Route::resource('quizzes.create',QuizController::class);
+
+
 });
