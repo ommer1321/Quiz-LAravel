@@ -92,6 +92,9 @@
 
                         <x-slot name="content">
                             <!-- Account Management -->
+
+
+
                      
 @if (Auth::user()->type=='admin')
     
@@ -99,16 +102,20 @@
                             <div class="block px-4 py-2 text-xs text-gray-400">
                                 {{ __('Admin İşlemleri') }}
                             </div>
-  <x-jet-dropdown-link href="{{ route('quizzes.index') }}">
-                                {{ __('Admin İşlemleri') }}
+                            <x-jet-dropdown-link href="{{ route('quizzes.index') }}">
+                                {{ __('Quiz İşlemleri') }}
                             </x-jet-dropdown-link>
 @endif
+
+
+
+
                             <div class="block px-4 py-2 text-xs text-gray-400">
-                                {{ __('Manage Account') }}
+                                {{ __('Hesabını Yönet') }}
                             </div>
                            
                             <x-jet-dropdown-link href="{{ route('profile.show') }}">
-                                {{ __('Profile') }}
+                                {{ __('Profil') }}
                             </x-jet-dropdown-link>
 
                             @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
@@ -125,7 +132,7 @@
 
                                 <x-jet-dropdown-link href="{{ route('logout') }}"
                                          @click.prevent="$root.submit();">
-                                    {{ __('Log Out') }}
+                                    {{ __('Çıkış Yap') }}
                                 </x-jet-dropdown-link>
                             </form>
                         </x-slot>
