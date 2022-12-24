@@ -30,7 +30,10 @@
                 <td>{{$quiz->description}}</td>
                 <td>@if($quiz->finished_at == null)-@endif{{$quiz->finished_at}}</td>
                 <td>{{$quiz->status}}</td>
-                <td><a href="{{Route('quizzes.edit',$quiz->id)}}"> <b>Düzenle</b></a> <br> <a href=""><b>Sil</b></a> <br> <a href=""><b>İncele</b></a></td>
+                <td>
+                  <a href="{{Route('quizzes.edit',$quiz->id)}}"> <b>Düzenle</b></a> <br> 
+                  <a href="{{Route('quizzes.destroy',$quiz->id)}}"><b>Sil</b></a> <br> 
+                  <a href=""><b>İncele</b></a></td>
               </tr>
             
                 @endforeach

@@ -64,7 +64,7 @@ class QuizController extends Controller
      */
     public function edit($id)
     {
-        $quiz = Quiz::find($id) ?? abort('404','Quiz Bulunamadı');
+        $quiz = Quiz::find($id) ?? abort('404','Lo Quiz Bulunamadı');
        
    return view('admin.quiz.edit',compact('quiz')); 
     }
@@ -78,7 +78,7 @@ class QuizController extends Controller
      */
     public function update(QuizUpdateRequest $request, $id)
     {
-        $quiz = Quiz::find($id) ?? abort('404','Quiz Bulunamadı');
+        $quiz = Quiz::find($id) ?? abort('404',' Canım Quiz Bulunamadı');
        Quiz::where('id',$id)->update( $request->except(['_method','_token']));
        return redirect()->route('quizzes.index')->withSuccess('Quiz Başarı İle Güncellendi');
     }
@@ -91,6 +91,8 @@ class QuizController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $quiz = Quiz::find($id) ?? abort('404','Hacı Quiz Bulunamadı');
+        $quiz->delete();
+        return redirect()->route('quizzes.index')->withSuccess('Başarılı Bir Şekilde Silindi');
     }
 }

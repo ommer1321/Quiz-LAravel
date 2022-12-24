@@ -100,7 +100,7 @@
                                 {{ __('Admin İşlemleri') }}
                             </div>
   <x-jet-dropdown-link href="{{ route('quizzes.index') }}">
-                                {{ __('Profile') }}
+                                {{ __('Admin İşlemleri') }}
                             </x-jet-dropdown-link>
 @endif
                             <div class="block px-4 py-2 text-xs text-gray-400">
