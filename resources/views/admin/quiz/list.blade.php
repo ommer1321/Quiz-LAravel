@@ -33,7 +33,7 @@
                 <td>
                   <a href="{{Route('quizzes.edit',$quiz->id)}}"> <b>Düzenle</b></a> <br> 
                   <a href="{{Route('quizzes.destroy',$quiz->id)}}"><b>Sil</b></a> <br> 
-                  <a href=""><b>İncele</b></a></td>
+                  <a href="{{Route('questions.index',$quiz->id)}}"><b>Detay</b></a></td>
               </tr>
             
                 @endforeach
