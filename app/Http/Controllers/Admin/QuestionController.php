@@ -128,8 +128,31 @@ class QuestionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($quiz_id,$question_id)
+
     {
-        //
+       $data = Quiz::find($quiz_id)->questions()->where('id',$question_id)->first();
+       if($data){
+
+       
+        if(file_exists(public_path($data->image))  && $data->image !=null  ){
+            unlink(public_path($data->image));
+        }
+       
+        $data->delete();
+        
+     
+       }
+    return   redirect()->route('questions.index',$quiz_id)->withSuccess('Soru Başarılı Silindi');
     }
+
+
+
+
+
+
+
+
+
+
 }

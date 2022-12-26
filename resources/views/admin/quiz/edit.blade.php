@@ -27,6 +27,17 @@
 
 <br>
 <div class="form-group">
+  <Label>Quiz Açıklama  (Zorunlu Değil)</Label>
+ <select name="status" id="">
+  <option @if ($quiz->status =='passive' ) selected @endif value="passive">Pasif</option>
+  <option  @if ($quiz->status =='draft' ) selected @endif value="draft">Taslak</option>
+  <option  @if ($quiz->status =='publish' ) selected  @endif @if ($dataCount<4)disabled @endif value="publish">Aktif</option>
+ </select>
+</div>
+
+
+<br>
+<div class="form-group">
   <Label>Bitiş Tarihi (Zorunlu Değil) </Label>
   <input type="datetime-local" name="finished_at" value="{{$quiz->finished_at}}" class="form-control" > 
 </div>

@@ -26,7 +26,8 @@ class QuizUpdateRequest extends FormRequest
         return [
         'title'=>'required|min:3',
         'description'=>'max:1000',
-        'finished_at'=>'nullable|after:'.now(),
+        'finished_at'=>'nullable|after:'.now(), 
+        'status'=>'required',
         ];
     }
 
@@ -38,7 +39,7 @@ class QuizUpdateRequest extends FormRequest
              'title'=>'Başlık',
             'description'=>'Açıklama',
             'finished_at'=>'Bitiş Tarihi',
-
+            'status'=>'Durum',
         ];
         
     }

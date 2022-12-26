@@ -17,7 +17,7 @@ class QuizController extends Controller
      */
     public function index()
     {
-        $quizzes = Quiz::paginate(5);
+      $quizzes = Quiz::withCount('questions')->paginate(5);
 
         return view('admin.quiz.list',compact('quizzes'));
     }
@@ -64,9 +64,11 @@ class QuizController extends Controller
      */
     public function edit($id)
     {
+           $data = Quiz::where('id',$id)->with('questions')->first();
+        $dataCount = count($data->questions);
         $quiz = Quiz::find($id) ?? abort('404','Lo Quiz Bulunamadı');
        
-   return view('admin.quiz.edit',compact('quiz')); 
+   return view('admin.quiz.edit',compact('quiz','dataCount')); 
     }
 
     /**
@@ -78,8 +80,9 @@ class QuizController extends Controller
      */
     public function update(QuizUpdateRequest $request, $id)
     {
+        
         $quiz = Quiz::find($id) ?? abort('404',' Canım Quiz Bulunamadı');
-       Quiz::where('id',$id)->update( $request->except(['_method','_token']));
+       Quiz::where('id',$id)->update($request->except(['_method','_token']));
        return redirect()->route('quizzes.index')->withSuccess('Quiz Başarı İle Güncellendi');
     }
 
