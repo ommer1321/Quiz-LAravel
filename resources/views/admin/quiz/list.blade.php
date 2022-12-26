@@ -3,11 +3,37 @@
     </x-slot>
   
 
+<div class="card">
+    <div class=" card-body">
+      <h5>
+      <div class="float-right"><caption ><a href="{{route('quizzes.create')}}"> + Quiz Oluştur</a></caption></div>
+    </h5><table class="table caption-top">
+           
+<form action="{{route('quizzes.index')}}" method="get" >
+<div class="form-row d-flex">
 
-    <div class="card card-body">
-        <table class="table caption-top">
-            <caption><a href="{{route('quizzes.create')}}"> + Quiz Oluştur</a></caption>
+  <div class="col-md-4  ">
+    <input type="text" name="title" value="{{request()->get('title')}}" placeholder="Quiz Adı" class="form-control">
+  </div>
+  
 
+  <div class="col-md-2">
+    <select name="status" id="" onchange = "this.form.submit()" >
+      <option @if (request()->get('status')=='passive') selected  @endif value="passive">Pasif</option>
+      <option @if (request()->get('status')=='publish') selected  @endif value="publish">Aktif</option>
+      <option @if (request()->get('status')=='draft') selected  @endif value="draft">Taslak</option>
+    </select>
+  </div>
+ <div class="col-sm-2">
+  <input style="color: rgb(0, 0, 0);" type="submit" value="Ara" class="btn btn-primary">
+  @if (request()->get('status') || request()->get('title') )
+  <a href="{{route('quizzes.index')}}"><input    style="color: rgb(0, 0, 0);" type="button" value="Sıfırla" class="btn btn-secondary"></a>
+ @endif  
+ </div>
+</div>
+
+
+</form>
             <thead>
               <tr>
                 <th scope="col">Quiz</th>
@@ -58,7 +84,8 @@
         
             </tbody>
           </table>
-   {{$quizzes->links()}}
+   {{$quizzes->withQueryString()->links()}}
     <!--</div><div class="card">-->
+</div>
 </div>
 </x-app-layout>
