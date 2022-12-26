@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Quiz;
 use Illuminate\Http\Request;
 use App\Http\Requests\QuestionCreateRequest;
+use App\Http\Requests\QuestionUpdateRequest;
 use Illuminate\Support\Str;
 
 class QuestionController extends Controller
@@ -77,9 +78,10 @@ class QuestionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit( $quiz_id ,$question_id)
     {
-        //
+         $single_question = Quiz::find($quiz_id)->questions()->where('id',$question_id)->first() ?? abort('404','Ahey Soru Yada Quiz Bulunamadı');
+      return(view('admin.question.update',compact( 'single_question','question_id','quiz_id')));
     }
 
     /**
@@ -89,9 +91,35 @@ class QuestionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(QuestionUpdateRequest $request, $quiz_id , $question_id)
     {
-        //
+        
+        $data = $request->except(['_token','_method']);
+
+        if($request->image){
+  
+                $fileName = Str::slug($request->question).".".$request->image->extension();
+                $fileNameWithUploadPath = 'uploads/'.$fileName;
+
+                $request->image->move(public_Path('uploads'), $fileNameWithUploadPath);
+
+                // $request->merge([
+
+                //     'image' =>$fileNameWithUploadPath
+    
+                // ]);
+
+
+        $data['image'] = $fileNameWithUploadPath;
+             
+        }
+
+        
+
+       
+        //gorsel guncellemıyor z-xamp hatası berıor
+     Quiz::find($quiz_id)->questions()->where('id',$question_id)->update($data);
+     return redirect()->route('questions.index',$quiz_id)->withSuccess('Güncelleme Başarılı');
     }
 
     /**

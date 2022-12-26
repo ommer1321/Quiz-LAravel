@@ -15,7 +15,7 @@
 
 <div class="form-group">
       <Label>*Quiz Başlığı</Label>
-      <input type="text" name="title" class="form-control" placeholder="{{old('title')}}" required> 
+      <input type="text" name="title" class="form-control" placeholder="" value="{{old('title')}}" required> 
     </div>
 
     <br>

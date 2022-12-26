@@ -35,7 +35,7 @@
                  <td>{{$question->answer4}}</td>
                  <td style="color: rgb(14, 55, 1)">{{substr($question->correct_answer,-1)}}. Cevap</td>
                  <td>
-                    <a href="{{Route('questions.create',$quiz->id)}}"> <b style="color: rgba(42, 65, 35, 0.718)">Düzenle</b></a> <br> 
+                    <a href="{{Route('questions.edit',[$quiz->id,$question->id])}}"> <b style="color: rgba(42, 65, 35, 0.718)">Düzenle</b></a> <br> 
                     <a href="{{Route('questions.create',$quiz->id)}}"><b style="color: rgba(182, 7, 7, 0.64)">Sil</b></a> <br> 
                     <a href="{{Route('questions.index',$quiz->id)}}"><b style="color: rgb(219, 124, 7)">Detay</b></a>
                 </td>
