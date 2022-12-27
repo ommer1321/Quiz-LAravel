@@ -7,6 +7,7 @@ use App\Http\Requests\QuizCreatRequest;
 use App\Http\Requests\QuizUpdateRequest;
 use App\Models\Quiz;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class QuizController extends Controller
 {
@@ -56,9 +57,11 @@ class QuizController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(QuizCreatRequest $request)
-    {
+    { 
+        $data = $request->post();     
+        $data['slug']= Str::slug($request->title);
 
-        Quiz::create($request->post());
+        Quiz::create($data);
         return redirect()->route('quizzes.index')->withSuccess('Quiz Başarılı Bir Şekilde Oluşturuldu');
     }
 
@@ -96,11 +99,16 @@ class QuizController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(QuizUpdateRequest $request, $id)
-    {
-        
+    {  
+         $data = $request->post();     
+         $data['slug']= Str::slug($request->title);
+          
+         unset($data['_method']);
+          unset($data['_token']);
+
         $quiz = Quiz::find($id) ?? abort('404',' Canım Quiz Bulunamadı');
-       Quiz::where('id',$id)->update($request->except(['_method','_token']));
-       return redirect()->route('quizzes.index')->withSuccess('Quiz Başarı İle Güncellendi');
+        Quiz::where('id',$id)->update($data);
+        return redirect()->route('quizzes.index')->withSuccess('Quiz Başarı İle Güncellendi');
     }
 
     /**
