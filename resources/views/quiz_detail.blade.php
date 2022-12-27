@@ -54,7 +54,7 @@
       <h5 class="card-title text-muted"> {{$quiz->description}}</h5>
    
   
-      <a href="#" class="btn btn-primary">Quiz'e Katıl</a>   <a href="#" class="btn btn-primary">Quiz'e Katıl</a>
+      <a href="{{route('quiz',$quiz->slug)}}" class="btn btn-primary">Quiz'e Katıl</a>  
     </div>
   </div>
 </div>
