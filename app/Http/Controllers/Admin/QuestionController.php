@@ -29,7 +29,7 @@ class QuestionController extends Controller
      */
     public function create($quiz_id)
     {
-        $quiz = Quiz::find($quiz_id)->first() ?? abort('404','Aha Quiz Bulunamadı');
+        $quiz = Quiz::where('id',$quiz_id)->first() ?? abort('404','Aha Quiz Bulunamadı');
 
         return view('admin.question.create',compact('quiz'));
     }
@@ -56,8 +56,10 @@ class QuestionController extends Controller
             ]);
      
         }
-   
-        Quiz::find($quiz_id)->questions()->create($request->post());
+        $data = $request->post();
+     $data['quiz_id'] = $quiz_id;
+     
+        Quiz::find($quiz_id)->questions()->create($data);
      return redirect()->route('questions.index',$quiz_id)->withSuccess('Soru Başarılı Bir Şekilde Oluşturuldu');
     }
 

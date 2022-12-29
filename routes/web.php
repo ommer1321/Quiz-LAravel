@@ -34,9 +34,10 @@ Route::group(['middleware'=>'auth'],function(){
 
     Route::get('quiz/detail/{slug}',[MainController::class,'quizDetail'])->name('quiz.detail');
 
-    Route::get('quiz/{slug}',[MainController::class,'quiz'])->name('quiz');
+    Route::get('quiz/{slug}',[MainController::class,'quizJoin'])->name('quizJoin');
 
- 
+    Route::post('quiz/{slug}/result',[MainController::class,'quizResult'])->name('quiz.result');
+
 
 });
 

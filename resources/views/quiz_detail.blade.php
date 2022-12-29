@@ -19,7 +19,7 @@
               <div class="ms-2 me-auto">
                 <div class="fw-bold">Soru Sayısı</div>      
               </div>
-              <span class="badge bg-primary rounded-pill">{{$quiz->questions_count}}</span>
+              <span class="badge bg-primary rounded-pill">{{$quiz->questions_count ? $quiz->questions_count : '-' }}</span>
             </li>
 
             <li class="list-group-item d-flex justify-content-between align-items-start">
@@ -54,7 +54,7 @@
       <h5 class="card-title text-muted"> {{$quiz->description}}</h5>
    
   
-      <a href="{{route('quiz',$quiz->slug)}}" class="btn btn-primary">Quiz'e Katıl</a>  
+      <a href="{{route('quizJoin',$quiz->slug)}}" class="btn btn-primary">Quiz'e Katıl</a>  
     </div>
   </div>
 </div>

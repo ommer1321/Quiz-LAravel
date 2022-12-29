@@ -75,7 +75,7 @@
 
 
 
-<button style="color: rgb(0, 0, 0)" type="submit" class="btn btn-light">Quiz Olustur</button>
+<button style="color: rgb(0, 0, 0)" type="submit" class="btn btn-light">Soru Olustur</button>
 
 
 </div>
