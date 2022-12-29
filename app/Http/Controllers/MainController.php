@@ -24,7 +24,7 @@ class MainController extends Controller
 
     public function quizDetail($slug){
          
-         $quiz= Quiz::where('slug',$slug)->withCount('questions')->first() ?? abort('404','yiağ Quiz Bulunamadı ');
+         $quiz= Quiz::where('slug',$slug)->with('myResult')->with('allResult')->withCount('questions')->first() ?? abort('404','yiağ Quiz Bulunamadı ');
          return view('quiz_detail',compact('quiz'));
 
     }
@@ -39,17 +39,12 @@ class MainController extends Controller
 
    public function quizResult(Request $request , $slug){
 
-     $user_answer= $request->except('_token');
   
       $quiz = Quiz::where('slug',$slug)->with('questions')->first();
   
- $dogru_sayisi=0;
- $soru_sayisi=0;
+      $dogru_sayisi=0;
+
      foreach($quiz->questions as $question){
-
-
- 
- 
 
     Answer::create([
 
@@ -59,14 +54,19 @@ class MainController extends Controller
  ]);
 
  if($request->post($question->id) == $question->correct_answer){
-$dogru_sayisi++;
+  $dogru_sayisi++;
  } 
    }
 
-
    $point = round((100/count($quiz->questions)*$dogru_sayisi));
 
- Result::create([
+
+   if($quiz->myResult){
+
+ abort('404','Geri Bas La!! Sen Bu Sınava Girdin ');
+  }
+
+Result::create([
   'user_id'=>auth()->user()->id,
   'quiz_id'=>$quiz->id,
   'correct'=>$dogru_sayisi,

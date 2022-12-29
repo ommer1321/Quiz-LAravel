@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class Quiz extends Model
 {
     use HasFactory;
+    protected $dates =['finished_at'] ;
     protected $fillable = [
         'title',
         'description',
@@ -20,6 +21,11 @@ class Quiz extends Model
         
     ];
 
+   protected  $appends = ['details'];
+
+
+
+
 
     public function questions(){
 
@@ -28,16 +34,77 @@ class Quiz extends Model
 
     } 
     
-    protected $dates =['finished_at'] ;
+
 
 
         
     public function finishedAtCarbonAttributes($dates){
 
         return $dates ? Carbon::parse('date') : null ;
-        
+            
 
     } 
+
+
+    public function myResult(){
+
+    return $this->hasOne('App\Models\Result')->where('user_id',auth()->user()->id);
+
+
+
+    }
+    
+
+    public function allResult(){
+
+        return $this->hasMany('App\Models\Result');
     
     
+    
+        }
+
+        
+
+
+        public function getDetailsAttribute(){
+
+         if($this->allResult()->count()>0){
+               return [
+        
+                'avarage' =>round($this->allResult()->avg('point')),
+                'join_count' =>count($this->allResult()->get()),
+
+            ]; 
+         }else{
+
+            return [
+        
+                'avarage' =>null,
+                'join_count' =>null,
+
+            ]; 
+
+         }
+        
+        
+        }
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

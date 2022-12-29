@@ -12,7 +12,7 @@
               <div class="ms-2 me-auto">
                 <div class="fw-bold">Son Katılma Tarihi</div>      
               </div>
-              <span class="badge bg-primary rounded-pill">{{$quiz->finished_at ? $quiz->finished_at->diffForHumans() :  'Tarih Belli Değil'}}</span>
+              <span class="badge bg-secondary rounded-pill">{{$quiz->finished_at ? $quiz->finished_at->diffForHumans() :  'Tarih Belli Değil'}}</span>
             </li>
 
             <li class="list-group-item d-flex justify-content-between align-items-start">
@@ -22,21 +22,47 @@
               <span class="badge bg-primary rounded-pill">{{$quiz->questions_count ? $quiz->questions_count : '-' }}</span>
             </li>
 
+            @if (!$quiz->details['join_count']==null)
             <li class="list-group-item d-flex justify-content-between align-items-start">
               <div class="ms-2 me-auto">
                 <div class="fw-bold">Katılımcı Sayısı</div>      
               </div>
-              <span class="badge bg-primary rounded-pill">-</span>
+              <span class="badge bg-primary rounded-pill">{{$quiz->details['join_count']}}</span>
             </li>
+            @endif
+            
+            @if (!$quiz->details['avarage']==null)
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                          <div class="ms-2 me-auto">
+                            <div class="fw-bold">Ortalama Puan</div>      
+                          </div>
+                          <span class="badge bg-primary rounded-pill">{{$quiz->details['avarage']}}</span>
+                        </li>
+            @endif
+          
 
+            @if (!count($quiz->allResult)>0)
             <li class="list-group-item d-flex justify-content-between align-items-start">
               <div class="ms-2 me-auto">
-                <div class="fw-bold">Ortalama Puan</div>      
+                <div class="fw-bold bg-warning"> <b><u><i>Bu Quiz'e Henüz Katılan Olmadı !</i></u></b> </div>      
               </div>
-              <span class="badge bg-primary rounded-pill">-</span>
+              <span class="badge bg-primary rounded-pill">{{$quiz->details['join_count']}}</span>
             </li>
+            @endif
 
-        
+
+           @if (!$quiz->myResult==null)
+           
+           <li class="list-group-item d-flex justify-content-between align-items-start">
+            <div class="ms-2 me-auto">
+              <div class="fw-bold">Puanım / Doğru / Yanlış</div>      
+            </div>
+            <span class="badge bg-warning rounded-pill">{{$quiz->myResult->point}}</span>
+            <span class="badge bg-success rounded-pill mr-1 ml-1">{{$quiz->myResult->correct}}</span>
+            <span class="badge bg-danger rounded-pill">{{$quiz->myResult->wrong}}</span>
+          </li>
+      
+           @endif
     
 
         </div>
@@ -53,8 +79,15 @@
     <div class="card-body">
       <h5 class="card-title text-muted"> {{$quiz->description}}</h5>
    
-  
-      <a href="{{route('quizJoin',$quiz->slug)}}" class="btn btn-primary">Quiz'e Katıl</a>  
+  @if (!$quiz->myResult == null)
+  <a href="{{route('quizJoin',$quiz->slug)}}" class=" block btn btn-primary">Quiz Sonucum'a Git</a>  
+  @endif
+      
+    
+  @if ($quiz->myResult == null)
+  <a href="{{route('quizJoin',$quiz->slug)}}" class=" block btn btn-warning">Quiz'e Katıl</a>  
+  @endif
+    
     </div>
   </div>
 </div>
