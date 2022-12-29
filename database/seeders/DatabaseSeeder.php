@@ -26,8 +26,8 @@ class DatabaseSeeder extends Seeder
       \App\Models\Quiz::factory(10)->create();
        \App\Models\User::factory(10)->create();
         \App\Models\Question::factory(100)->create();
-          \App\Models\Answer::factory(1000)->create();
-
+         \App\Models\Answer::factory(1000)->create();
+          \App\Models\Result::factory(100)->create();
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User', 

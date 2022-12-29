@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Answer;
 use App\Models\Quiz;
+use App\Models\Result;
 use Illuminate\Http\Request;
 
 class MainController extends Controller
@@ -37,9 +39,43 @@ class MainController extends Controller
 
    public function quizResult(Request $request , $slug){
 
-     
-     return     Quiz::where('slug',$slug)->with('questions')->first();
-  $request->post();
+     $user_answer= $request->except('_token');
+  
+      $quiz = Quiz::where('slug',$slug)->with('questions')->first();
+  
+ $dogru_sayisi=0;
+ $soru_sayisi=0;
+     foreach($quiz->questions as $question){
+
+
+ 
+ 
+
+    Answer::create([
+
+   'user_id' => auth()->user()->id,
+   'question_id' => $question->id,
+     'answer' => $request->post($question->id),
+ ]);
+
+ if($request->post($question->id) == $question->correct_answer){
+$dogru_sayisi++;
+ } 
+   }
+
+
+   $point = round((100/count($quiz->questions)*$dogru_sayisi));
+
+ Result::create([
+  'user_id'=>auth()->user()->id,
+  'quiz_id'=>$quiz->id,
+  'correct'=>$dogru_sayisi,
+  'wrong'=>count($quiz->questions)-$dogru_sayisi,
+  'point'=> $point,
+
+ ]);
+
+ return redirect()->route('quiz.detail',$quiz->slug)->withSuccess('Quiz Başarılı Bir Şekilde Tamamlandı Puanınız : '.$point);
 
 }
 
