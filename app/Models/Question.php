@@ -19,4 +19,7 @@ class Question extends Model
         'image'      
         
     ];
+
+
+   
 }

@@ -64,7 +64,14 @@ class Quiz extends Model
         }
 
         
+        public function top_ten(){
 
+            return $this->hasMany('App\Models\Result')->orderBy('point','desc')->limit(10);
+        
+        
+        
+            }
+    
 
         public function getDetailsAttribute(){
 

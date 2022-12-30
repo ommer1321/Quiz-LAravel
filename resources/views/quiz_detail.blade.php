@@ -55,7 +55,7 @@
            
            <li class="list-group-item d-flex justify-content-between align-items-start">
             <div class="ms-2 me-auto">
-              <div class="fw-bold">Puanım / Doğru / Yanlış</div>      
+            <div class="fw-bold text-muted">    Puanım / Doğru / Yanlış</div>      
             </div>
             <span class="badge bg-warning rounded-pill">{{$quiz->myResult->point}}</span>
             <span class="badge bg-success rounded-pill mr-1 ml-1">{{$quiz->myResult->correct}}</span>
@@ -80,7 +80,7 @@
       <h5 class="card-title text-muted"> {{$quiz->description}}</h5>
    
   @if (!$quiz->myResult == null)
-  <a href="{{route('quizJoin',$quiz->slug)}}" class=" block btn btn-primary">Quiz Sonucum'a Git</a>  
+  <a href="{{route('quizJoin',$quiz->slug)}}" class=" block btn btn-secondary ">Quiz Sonucum'a Git</a>  
   @endif
       
     
@@ -91,12 +91,52 @@
     </div>
   </div>
 </div>
+<div class="col-md-4 mt-3">
+
+<div class="card" style="width: 24.3rem;">
+  <div class="card-header ">
+    <h1><b>İlk 10</b></h1>
+  </div>
+  <ul class="list-group list-group-flush ">
+
+@if (!$quiz->top_ten==null)
+  
+
+    @foreach ($quiz->top_ten as $ia)
+    
+    
+    
+    <li class="list-group-item"> 
+      <img class="mr-3" style="  border-radius: 2rem; display: inline; width: 50px" src="{{asset($ia->user['profile_photo_url'])}}" alt="">
+      <span  class=" mr-1" style="font-size: 1.7rem;  border-radius: 2rem; display: inline;  ">{{$loop->iteration}}.</span>
+      {{ $ia->user['name']}}
+
+    @if ($loop->iteration<=3)
+    <span class="badge bg-success rounded-pill float-right">{{$ia['point']}}</span>
+    @endif
+
+
+    @if ($loop->iteration < 7 && $loop->iteration > 3 )
+    <span class="badge bg-warning rounded-pill float-right">{{$ia['point']}}</span>
+    @endif
+
+    @if ($loop->iteration>=7)
+    <span class="badge bg-danger rounded-pill float-right">{{$ia['point']}}</span>
+    @endif
+
+    </li>
+
+    @endforeach
 
 
 
 
+@endif
 
+  </ul>
+</div>
 
+</div>
 
 
 
