@@ -4,7 +4,9 @@
     <div class="row">
 
         
-
+<div class="alert alert-info">
+  İşaretlediğiniz Şık Doğru İse => (+)   Yanlış ise => (-) ile ifade edilmektedir.<br>
+</div>
 @foreach ($quiz->questions as $question )
  
 <form action="{{route('quiz.result',[$quiz->slug])}}" method="POST">
@@ -13,7 +15,7 @@
 <div class="col-md-12 mb-3">
   <div class="card">
     <div class="card-header">
-     <b>#{{$loop->iteration}}</b> {{$question->question}}
+      @if ($question->correct_answer == 'answer1'   )<b><span style="color: rgb(0, 244, 0)">  (+) Dogru</b> </span>  @else <b><span style="color: rgb(244, 0, 0)"> (-)  Yanlış </b></span>@endif  <b>#{{$loop->iteration}}</b> {{$question->question}}
     </div>
     <div class="card-body">
 <center>
@@ -26,7 +28,7 @@
 
       
   <h5 class="card-title text-muted">
-    @if ($question->correct_answer == 'answer1'   )<b><span style="color: rgb(0, 244, 0)">  (+)</b> </span>  @else <b><span style="color: rgb(244, 0, 0)"> (-) </b> </span>@endif
+   
     {{$quiz->description}}</h5>
       <div class="form-check">
         <input  class="form-check-input" type="radio" @if ($question->myAnswer->answer == 'answer1'  ) checked   @else disabled  @endif  value="answer1" >
@@ -37,7 +39,7 @@
       <div class="form-check">
         <input  class="form-check-input" type="radio" @if ($question->myAnswer->answer == 'answer2'  ) checked   @else disabled  @endif  value="answer2" >
         <label class="form-check-label" for="exampleRadios1">
-          @if ($question->correct_answer == 'answer2'   ) <b><span style="color: green">  2- {{$question->answer2}} </b>   </span>  @else 2- {{$question->answer2}}    @endif
+          @if ($question->correct_answer == 'answer2'   ) <b><span style="color: rgb(0, 244, 0)">  2- {{$question->answer2}} </b>   </span>  @else 2- {{$question->answer2}}    @endif
         </label>
       </div>
       
