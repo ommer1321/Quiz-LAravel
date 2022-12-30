@@ -20,6 +20,11 @@ class Question extends Model
         
     ];
 
+    public function myAnswer(){
 
+        return $this->hasOne('App\Models\Answer')->where('user_id',auth()->user()->id);
+    
+    }
+    
    
 }

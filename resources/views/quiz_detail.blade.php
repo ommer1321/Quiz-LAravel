@@ -81,7 +81,7 @@
       <h5 class="card-title text-muted"> {{$quiz->description}}</h5>
    
   @if (!$quiz->myResult == null)
-  <a href="{{route('quizJoin',$quiz->slug)}}" class=" block btn btn-secondary ">Quiz Sonucum'a Git</a>  
+  <a href="{{route('quiz.review',$quiz->slug)}}" class=" block btn btn-secondary ">Quiz Sonucum'a Git</a>  
   @endif
       
     

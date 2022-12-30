@@ -37,8 +37,8 @@ Route::group(['middleware'=>'auth'],function(){
     Route::get('quiz/{slug}',[MainController::class,'quizJoin'])->name('quizJoin');
 
     Route::post('quiz/{slug}/result',[MainController::class,'quizResult'])->name('quiz.result');
-
-
+    
+    Route::get('quiz/review/{slug}',[MainController::class,'quizReview'])->name('quiz.review');
 });
 
 

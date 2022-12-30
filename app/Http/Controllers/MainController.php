@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Answer;
+use App\Models\Question;
 use App\Models\Quiz;
 use App\Models\Result;
 use Illuminate\Http\Request;
@@ -33,6 +34,18 @@ class MainController extends Controller
          
         $quiz= Quiz::where('slug',$slug)->withCount('questions')->first() ?? abort('404','yiağ Quiz Bulunamadı ');
         return view('quiz',compact('quiz'));
+
+   }
+
+   public function quizReview($slug){
+
+       $quiz = Quiz::where('slug',$slug)->with('myResult','questions.myAnswer')->first();
+      
+       return  view('quiz_review',compact('quiz'));
+
+
+
+
 
    }
 
