@@ -1,11 +1,15 @@
 <x-app-layout>
-    <x-slot name="header">Quiz Öngörü   </x-slot>
+    <x-slot name="header"> Quiz Önizleme : {{$quiz->title}}   </x-slot>
   
     <div class="row">
 
         
-<div class="alert alert-info">
-  İşaretlediğiniz Şık Doğru İse => (+)   Yanlış ise => (-) ile ifade edilmektedir.<br>
+<div class="alert alert-warning">
+  <p class="mb-2" >İşaretlediğiniz Şık Doğru İse => (+)   Yanlış ise => (-) ile ifade edilmektedir. </p>
+  <b  class="mb-2"><h1 style="color: rgba(1, 130, 6, 0.867); font-size: 1.7rem">Puan : {{$quiz->myResult->point}}</h1> </b>
+ 
+  <b  class="mr-2"><span style="color: rgb(5, 155, 5)"> Doğru :  {{$quiz->myResult->correct}} </b> </span> 
+  <b><span style="color: rgb(186, 3, 3)"> Yanlış :  {{$quiz->myResult->wrong}} </b> </span> 
 </div>
 @foreach ($quiz->questions as $question )
  
@@ -13,7 +17,7 @@
 @csrf
 
 <div class="col-md-12 mb-3">
-  <div class="card">
+  <div class="card ">
     <div class="card-header">
       @if ($question->correct_answer == 'answer1'   )<b><span style="color: rgb(0, 244, 0)">  (+) Dogru</b> </span>  @else <b><span style="color: rgb(244, 0, 0)"> (-)  Yanlış </b></span>@endif  <b>#{{$loop->iteration}}</b> {{$question->question}}
     </div>
@@ -27,9 +31,10 @@
 
 
       
-  <h5 class="card-title text-muted">
+  <h5 class="card-title text-muted " style="font-size: 1.2rem ">
    
     {{$quiz->description}}</h5>
+
       <div class="form-check">
         <input  class="form-check-input" type="radio" @if ($question->myAnswer->answer == 'answer1'  ) checked   @else disabled  @endif  value="answer1" >
         <label class="form-check-label" for="exampleRadios1">
@@ -57,7 +62,10 @@
          @if ($question->correct_answer == 'answer4'   )<b><span style="color: rgb(0, 244, 0)">4- {{$question->answer4}}  </b> </span>  @else  4- {{$question->answer4}}    @endif
         </label>
       </div>
-    
+     
+    <div class="alert alert-info mt-3">
+        Bu Soruya  <b> %{{$question->true_percent}}</b> Oranında Doğru Cevap Verildi.. 
+    </div>
   
     </div>
   </div>

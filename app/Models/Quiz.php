@@ -22,7 +22,7 @@ class Quiz extends Model
     ];
 
    protected  $appends = ['details'];
-
+    
 
 
 
