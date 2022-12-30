@@ -55,11 +55,12 @@
            
            <li class="list-group-item d-flex justify-content-between align-items-start">
             <div class="ms-2 me-auto">
-            <div class="fw-bold text-muted">    Puanım / Doğru / Yanlış</div>      
+            <div class="fw-bold text-muted">Puanım / Doğru / Yanlış </div>      
             </div>
             <span class="badge bg-warning rounded-pill">{{$quiz->myResult->point}}</span>
             <span class="badge bg-success rounded-pill mr-1 ml-1">{{$quiz->myResult->correct}}</span>
             <span class="badge bg-danger rounded-pill">{{$quiz->myResult->wrong}}</span>
+           
           </li>
       
            @endif
@@ -95,6 +96,7 @@
 
 <div class="card" style="width: 24.3rem;">
   <div class="card-header ">
+    
     <h1><b>İlk 10</b></h1>
   </div>
   <ul class="list-group list-group-flush ">
@@ -109,7 +111,15 @@
     <li class="list-group-item"> 
       <img class="mr-3" style="  border-radius: 2rem; display: inline; width: 50px" src="{{asset($ia->user['profile_photo_url'])}}" alt="">
       <span  class=" mr-1" style="font-size: 1.7rem;  border-radius: 2rem; display: inline;  ">{{$loop->iteration}}.</span>
-      {{ $ia->user['name']}}
+     
+     @if (auth()->user()->id ==$ia->user['id'])
+     <b >{{ $ia->user['name']}}  </b> 
+     @endif
+     
+     @if (auth()->user()->id !=$ia->user['id'])
+     {{ $ia->user['name']}}
+     @endif
+
 
     @if ($loop->iteration<=3)
     <span class="badge bg-success rounded-pill float-right">{{$ia['point']}}</span>

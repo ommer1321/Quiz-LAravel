@@ -54,6 +54,8 @@ class Quiz extends Model
 
     }
     
+    
+    
 
     public function allResult(){
 
@@ -91,12 +93,19 @@ class Quiz extends Model
 
             ]; 
 
+
          }
-        
-        
+
+               
         }
         
 
+
+        public function myQuizOrder(){
+
+            return $this->hasOne('App\Models\Result')->where('user_id',auth()->user()->id)->orderBy('point','asc');
+            
+                        }
 
 
 
