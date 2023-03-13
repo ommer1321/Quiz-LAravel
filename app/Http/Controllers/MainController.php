@@ -14,9 +14,12 @@ class MainController extends Controller
 
     public function dashboard(){
 
-     $quizzes= Quiz::where('status','publish')->withCount('questions')->paginate(5);
-
-        return view('dashboard',compact('quizzes'));
+     $quizzes= Quiz::where('status','publish')->where('finished_at','=',null)->orwhere('finished_at','>',now())->where('status','publish')->withCount('questions')->paginate(5);
+     
+       $myResultList =  Result::where('user_id',auth()->user()->id)->with('myList')->paginate(10);
+  
+ 
+     return    view('dashboard',compact(['quizzes','myResultList']));
 
     }
 
@@ -40,10 +43,10 @@ class MainController extends Controller
    public function quizReview($slug){
 
      $quiz = Quiz::where('slug',$slug)->with('myResult','questions.myAnswer')->first();
+    
 
 
-
-     return view('quiz_review',compact('quiz'));
+     return view('quiz_review',compact(['quiz']));
 
 
 
@@ -92,5 +95,14 @@ Result::create([
 
 }
 
+
+public function myResultList(){
+
+
+
+
+
+
+}
 
 }

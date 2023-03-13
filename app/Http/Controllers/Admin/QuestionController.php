@@ -19,7 +19,7 @@ class QuestionController extends Controller
     public function index($id)
     {
          $quiz = Quiz::where('id',$id)->with('questions')->first() ?? abort('404',' Layn Quiz Bulunamadı');
-        return  view('admin.question.list',compact('quiz')) ;
+         return   view('admin.question.list',compact('quiz')) ;
     }
 
     /**

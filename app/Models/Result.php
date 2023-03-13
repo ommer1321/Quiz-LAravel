@@ -36,4 +36,11 @@ public function user(){
 }
 
 
+public function myList(){
+
+
+    return $this->hasMany('App\Models\Quiz','id','quiz_id');
+
+}
+
 }

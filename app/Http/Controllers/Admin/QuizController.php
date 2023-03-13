@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\QuizCreatRequest;
 use App\Http\Requests\QuizUpdateRequest;
 use App\Models\Quiz;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -76,6 +77,45 @@ class QuizController extends Controller
         //
     }
 
+
+    public function quizOnizle($user_id,$slug)
+    {
+
+        //$quiz = Quiz::where('slug',$slug)->with('myResult','questions.myAnswer')->first();
+        
+         $user = User::where('id',$user_id)->first();
+             $quiz = Quiz::where('slug',$slug)->with('questions')->with('questions.allAnswer')->first();
+            
+         
+                   
+         return     view('admin.quiz.quiz_onizle',compact(['user','quiz']));
+         
+
+
+
+
+
+    }
+    public function quizSonuc($quiz_id)
+    {
+         $datas = Quiz::where('id',$quiz_id)->with('allResult')->with('allResult.user')->first();
+     
+
+        $point = 0;
+        $user_count = count($datas->allResult);
+        
+         foreach ( $datas->allResult as $data ){
+
+            $point += $data['point'];
+
+         }
+         $point =$point/$user_count;
+
+       return  view('admin.quiz.sonuc',compact('datas','point','user_count'));
+        
+
+    }
+    
     /**
      * Show the form for editing the specified resource.
      *

@@ -74,10 +74,12 @@
                     
                 @endswitch
               
-                <td>
+                <td>    
+                  <a style="color: rgb(14, 197, 14)" href="{{route('quizzes.sonuc',$quiz->id)}}"> <b>Sonuçlar</b></a> <br> 
                   <a href="{{Route('quizzes.edit',$quiz->id)}}"> <b>Düzenle</b></a> <br> 
                   <a href="{{Route('quizzes.destroy',$quiz->id)}}"><b>Sil</b></a> <br> 
                   <a href="{{Route('questions.index',$quiz->id)}}"><b>Sorular</b></a></td>
+                  
               </tr>
             
                 @endforeach

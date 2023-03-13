@@ -7,7 +7,13 @@
         <div class="col-md-8">
 
             <div class="list-group">
-           
+              <div class="d-flex w-100 justify-content-between">
+            
+                  <span style="font-size:1.5rem  ; color: rgb(55, 56, 62)"><b>Aktif Quizler</b></span>
+
+         
+                
+              </div>
 
                 @foreach ($quizzes as $quiz )
                     
@@ -34,11 +40,27 @@
         </div>
 
         <div class="col-md-4">
-
-            Deneme
+       
+           
+         
+          <ul class="list-group">
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+<span style="font-size:1.5rem  ; color: rgb(55, 56, 62)"><b>Çözdüğüm Quizler</b></span>
+            </li>
+              @foreach ($myResultList as $Myresult )
+          
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              {{  substr($Myresult->myList[0]->title,0,150) }}
+            <a class="btn btn-secondary" href="{{route('quiz.review',$Myresult->myList[0]->slug)}}" role="button">{{$Myresult->myList[0]->id}}</a>
+            </li>
+            
+              @endforeach
+              {{$myResultList->links();}}
+           
+          </ul>
+          
 
         </div>
-
 
 
 

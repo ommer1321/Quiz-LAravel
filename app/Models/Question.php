@@ -29,6 +29,11 @@ class Question extends Model
     
     }
 
+    public function allAnswer(){
+
+        return $this->hasMany('App\Models\Answer');
+    
+    }
 
     public function Percent(){
 
