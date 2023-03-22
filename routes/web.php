@@ -38,11 +38,14 @@ Route::group(['middleware'=>'auth'],function(){
 
     Route::post('quiz/{slug}/result',[MainController::class,'quizResult'])->name('quiz.result');
     
+    
+    
     Route::get('quiz/review/{slug}',[MainController::class,'quizReview'])->name('quiz.review');
     
 
     
 });
+
 
 
 
